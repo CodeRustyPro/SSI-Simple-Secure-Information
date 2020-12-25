@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: -webkit-linear-gradient(left top, #152a8e, #b1376c);
+    background: -o-linear-gradient(bottom right, #152a8e, #b1376c);
+    background: -moz-linear-gradient(bottom right, #152a8e, #b1376c);
+    background: linear-gradient(to bottom right, #2a8e, #b1376c);
+}
+
+
+
+nav {
+    width: 80%;
+    height: 5vh;
+    position: sticky;
+    margin: 20px auto;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    flex-basis: 20%;
+}
+
+.logo img {
+    height: 10%;
+    width: 50px;
+}
+
+.links {
+    flex: 1;
+    text-align: right;
+}
+
+.links ul li {
+    list-style-type: none;
+    display: inline-block;
+    margin: 0 20px;
+}
+
+.links ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+.info{
+	width: 1000px;
+	height: 1000px;
+	position: absolute;
+	top: 50%;
+	left: -10%;
+	transform: translateY(-50%);
+}
+#circle{
+	width: 1000px;
+	height: 1000px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 50%;
+	background: #ccc;
+}
+.feature{
+	position: absolute;
+	display: flex;
+	color: #111
+}
+.feature div{
+	margin-left: 30px;
+}
+.feature div p{
+	margin-top: 8px;
+}
+.one{
+	top: 450px;
+	right: 50px;
+}
+.two{
+	top: 150px;
+	left: 350px;
+}
+.three{
+	bottom: 450px;
+	left: 50px;
+}
+.four{
+	bottom: 150px;
+	right: 350px;
+}
+.help{
+	width: 300px;
+	position: absolute;
+	top: 50%;
+	left: 35%;
+	transform: translateY(-50%);
+	z-index: 1;
+}

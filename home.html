@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Get Data</title>
+    <script type="text/javascript" src="signup.js"></script>
+    <link rel="stylesheet" type="text/css" href="home.css">
+</head>
+
+<body>
+        <nav class="navbar">
+        <div class="navbar__container">
+            <a href="index.html#home" id="navbar__logo"><img src="logo.png"></a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span> <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="index.html#home" target="_blank" class="navbar__links" id="home-page">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="index.html#about" target="_blank" class="navbar__links" id="about-page">About</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="signup.html" target="_blank" class="navbar__links" id="about-page">SignUp/In</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="index.html#services" target="_blank" class="navbar__links" id="services-page">Services</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="login.html" target="_blank" class="button" id="signup">Upload Data</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="login.html" target="_blank" class="button" id="signup">Recieve Data</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <div class="content">
+                <h2>Enter Username</h2>
+                <input type="text" id="user" required="required" placeholder="Username is case sensitive"><br>
+                <button type="button" onclick="getdata();">Get</button>
+                <p>Username:<strong id="username"></strong></p>
+                <p>Name :<strong id="Name"></strong></p>
+                <p>Message:<strong id="message"></strong></p>
+                <p>Other:<strong id="other"></strong></p>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJlHmZxpbstSSVPZZKgNPKfPvZSrVPzfwhcZJpbWmwBRlVnbdfnTRVCgqbvbPLKclfzpStg" target="_blank">Forgot Username-Send mail</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+    <script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyAsq2FT_7zQ4iyY5evm_5Tu28KzbrQvG_I",
+        authDomain: "test-1-5626c.firebaseapp.com",
+        databaseURL: "https://test-1-5626c-default-rtdb.firebaseio.com",
+        projectId: "test-1-5626c",
+        storageBucket: "test-1-5626c.appspot.com",
+        messagingSenderId: "25172260807",
+        appId: "1:25172260807:web:5713c73dfbbba482e60be2",
+        measurementId: "G-8GTWJEXNVM"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    </script>
+    <script type="text/javascript">
+    firebase.auth().onAuthStateChanged(firebaseUser => {
+        if (firebaseUser) {
+            console.log(firebaseUser);
+
+        } else {
+            console.log('Not Logged In');
+            alert('User Signed Out !')
+            window.location = 'login.html'
+        }
+    })
+    </script>
+    <script type="text/javascript">
+
+    function getdata() {
+        if (document.getElementById("user").value=='') {
+            alert('Username is Empty');
+        } else {
+            var user = document.getElementById("user").value;
+        //firebase data retrieval function
+        //path of your data
+        //.once will get all your data in one time
+        firebase.database().ref('users/' + user).once('value').then(function(snapshot) {
+            //here we will get data
+            //enter your field name
+            var username = snapshot.val().userName;
+            var Name = snapshot.val().Name;
+            var message = snapshot.val().userMessage;
+            var other = snapshot.val().userother;
+
+            //now we have data in variables
+            //now show them in our html
+
+            document.getElementById("username").innerHTML = username;
+            document.getElementById("Name").innerHTML = Name;
+            document.getElementById("message").innerHTML = message;
+            document.getElementById("other").innerHTML = other;
+        }).catch(function(error) {
+            //this function handles errors
+            alert("Username doesn't exists");
+        });
+    }
+        }
+        
+    </script>
+    <script type="text/javascript" src="vanilla-tilt.js"></script>
+    <script type="text/javascript">
+    VanillaTilt.init(document.querySelectorAll(".card"), {
+        max: 7,
+        speed: 10,
+        glare: true,
+        "max-glare": 0.2
+    });
+    </script>
+</body>
+
+</html>

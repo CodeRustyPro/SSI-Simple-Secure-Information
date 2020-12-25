@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="login.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="#home" id="navbar__logo"><img src="logo.png"></a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span> <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="index.html" class="navbar__links" id="home-page">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="index.html#about" class="navbar__links" id="about-page">About</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="signup.html" target="_blank" class="navbar__links" id="about-page">SignUp/In</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="index.html#services" class="navbar__links" id="services-page">Services</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="login.html" target="_blank" class="navbar__links" id="services-page">Upload Data</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="login.html" class="button" id="signup">Recieve Data</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.1/firebase.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script>
+        // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+        apiKey: "AIzaSyAsq2FT_7zQ4iyY5evm_5Tu28KzbrQvG_I",
+        authDomain: "test-1-5626c.firebaseapp.com",
+        projectId: "test-1-5626c",
+        storageBucket: "test-1-5626c.appspot.com",
+        messagingSenderId: "25172260807",
+        appId: "1:25172260807:web:5713c73dfbbba482e60be2",
+        measurementId: "G-8GTWJEXNVM"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    </script>
+    <form id="form" autocomplete="off">
+        <label for="u_email">Email:</label><br>
+        <input type="text" id="u_email" autocomplete="off" required="required" placeholder="Enter Email Address" onkeyup="validate();">
+        <span class="indicator"></span>
+        <br><br>
+        <label for="u_password">Password:</label><br>
+        <input type="text" id="u_password" required="required" placeholder="Enter Password">
+        <br><br>
+        <button type="button" onclick="loginUser();">Login</button>
+        <button type="button" id="googlebtn" onclick="GoogleLogin();">LoginWithGoogle</button>
+        <button type="button" onclick="window.location='signup.html'">SignUp</button>
+    </form>
+    <script type="text/javascript" src="login-backup.js"></script>
+    <script type="text/javascript">
+    function validate() {
+        const form = document.getElementById('form');
+        const email = document.getElementById('u_email').value;
+        const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/
+        if (email.match(pattern)) {
+            form.classList.add('valid')
+            form.classList.remove('invalid')
+        } else {
+            form.classList.add('invalid')
+            form.classList.remove('valid')
+        }
+
+    }
+    </script>
+</body>
+
+</html>

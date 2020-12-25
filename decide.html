@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Decide - Upload Data or Get Data</title>
+    <link rel="stylesheet" type="text/css" href="decide.css">
+</head>
+
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="index.html#home" target="_blank" id="navbar__logo"><img src="logo.png"></a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span> <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="index.html#home" target="_blank" class="navbar__links" id="home-page">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="index.html#about" target="_blank" class="navbar__links" id="about-page">About</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="signup.html" target="_blank" class="navbar__links" id="about-page">SignUp/In</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="index.html#services" target="_blank" class="navbar__links" id="services-page">Services</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="login.html" target="_blank" class="button" id="upload"upload >Upload Data</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="login.html" target="_blank" class="button" id="signup">Recieve Data</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section>
+        <div class="content">
+            <h1 id="heading">What do you want to do?</h1>
+            <button onclick="window.location='uploadData.html'">Upload Data</button>
+            <button onclick="window.location='home.html'">Get Data</button>
+            <button type="button" class="hide" id="signoutbtn">SignOut</button>
+            <button type="button" id="changeName" onclick="changeName();">Change Name</button>
+            <input type="name" name="name" style="display: none;" id="changeNameValue">
+        </div>
+        <img src="man.png" id="manimg">
+        <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#00bfff" fill-opacity="0.3" d="M0,192L40,170.7C80,149,160,107,240,122.7C320,139,400,213,480,208C560,203,640,117,720,69.3C800,21,880,11,960,32C1040,53,1120,107,1200,144C1280,181,1360,203,1400,213.3L1440,224L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path>
+        </svg>
+    </section>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+    <script src="https://www.gstatic.com/firebasejs/6.0.1/firebase.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+        apiKey: "AIzaSyAsq2FT_7zQ4iyY5evm_5Tu28KzbrQvG_I",
+        authDomain: "test-1-5626c.firebaseapp.com",
+        projectId: "test-1-5626c",
+        storageBucket: "test-1-5626c.appspot.com",
+        messagingSenderId: "25172260807",
+        appId: "1:25172260807:web:5713c73dfbbba482e60be2",
+        measurementId: "G-8GTWJEXNVM"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    </script>
+    <script type="text/javascript">
+    document.getElementById('manimg').setAttribute('draggable', false);
+    </script>
+    <script type="text/javascript">
+    var btnLogout = document.getElementById("signoutbtn");
+    btnLogout.addEventListener('click', e => {
+        firebase.auth().signOut();
+    });
+    </script>
+    <script type="text/javascript">
+    const menu = document.querySelector('#mobile-menu');
+    const menuLinks = document.querySelector('.navbar__menu');
+    const navLogo = document.querySelector('#navbar__logo');
+
+    // Display Mobile Menu
+    const mobileMenu = () => {
+        menu.classList.toggle('is-active');
+        menuLinks.classList.toggle('active');
+    };
+
+    menu.addEventListener('click', mobileMenu);
+
+    // Show active menu when scrolling
+    const highlightMenu = () => {
+        const elem = document.querySelector('.highlight');
+        const homeMenu = document.querySelector('#home-page');
+        const aboutMenu = document.querySelector('#about-page');
+        const servicesMenu = document.querySelector('#services-page');
+        let scrollPos = window.scrollY;
+        // console.log(scrollPos);
+
+        // adds 'highlight' class to my menu items
+        if (window.innerWidth > 960 && scrollPos < 600) {
+            homeMenu.classList.add('highlight');
+            aboutMenu.classList.remove('highlight');
+            return;
+        } else if (window.innerWidth > 960 && scrollPos < 1400) {
+            aboutMenu.classList.add('highlight');
+            homeMenu.classList.remove('highlight');
+            servicesMenu.classList.remove('highlight');
+            return;
+        } else if (window.innerWidth > 960 && scrollPos < 2345) {
+            servicesMenu.classList.add('highlight');
+            aboutMenu.classList.remove('highlight');
+            return;
+        }
+
+        if ((elem && window.innerWIdth < 960 && scrollPos < 600) || elem) {
+            elem.classList.remove('highlight');
+        }
+    };
+
+    window.addEventListener('scroll', highlightMenu);
+    window.addEventListener('click', highlightMenu);
+
+    //  Close mobile Menu when clicking on a menu item
+    const hideMobileMenu = () => {
+        const menuBars = document.querySelector('.is-active');
+        if (window.innerWidth <= 768 && menuBars) {
+            menu.classList.toggle('is-active');
+            menuLinks.classList.remove('active');
+        }
+    };
+
+    menuLinks.addEventListener('click', hideMobileMenu);
+    navLogo.addEventListener('click', hideMobileMenu);
+    </script>
+    <script type="text/javascript">
+    firebase.auth().onAuthStateChanged(firebaseUser => {
+        if (firebaseUser) {
+            console.log(firebaseUser);
+            var user = firebase.auth().currentUser;
+            var name, email, photoUrl, uid, emailVerified;
+
+
+
+            if (user != null) {
+                name = user.displayName;
+                email = user.email;
+                photoUrl = user.photoURL;
+                emailVerified = user.emailVerified;
+                uid = user.uid;
+                console.log(name, email, photoUrl, emailVerified);
+                if (name != null) {
+                    document.getElementById('heading').innerHTML = `What do you want to do ${name}?`;
+
+                }
+                if (photoUrl != null) {
+                    document.getElementById('manimg').style.borderRadius = '20px';
+                    document.getElementById('manimg').style.width = '10rem';
+                    document.getElementById("manimg").src = user.photoURL;
+                }
+            }
+
+        } else {
+            console.log('Not Logged In');
+            alert('User Signed Out !')
+            window.location = 'login.html'
+        }
+    })
+    </script>
+    <script type="text/javascript">
+    function changeName() {
+        var nameValue = document.getElementById('changeNameValue').style.display='flex';
+        var nameValue = document.getElementById('changeNameValue').value;
+        
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                var user = firebase.auth().currentUser;
+
+                user.updateProfile({
+                    displayName: nameValue,
+                }).then(function() {
+                    console.log('success');
+                    document.getElementById('heading').innerHTML = `What do you want to do ${nameValue}?`;
+                }).catch(function(error) {
+                    // An error happened.
+                });
+            } else {
+
+            }
+        });
+    }
+    </script>
+</body>
+
+</html>

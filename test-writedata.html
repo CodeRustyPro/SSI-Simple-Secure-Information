@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <script type="text/javascript" src="test-writedata.js"></script>
+</head>
+
+<body>
+    <center>
+        <label>Name</label><br>
+        <input type="text" id="userName" required="required"><br><br>
+    </center>
+    <center>
+        <label>Password:</label><br>
+        <input type="password" id="userPassword" required="required"><br><br>
+    </center>
+    <center>
+        <button id="insert">Insert</button>
+    </center>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+    <script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyDdz-7xWCSzWMw4OvhPOapCKifOg8xEw4o",
+        authDomain: "qwerty-b19df.firebaseapp.com",
+        databaseURL: "https://qwerty-b19df.firebaseio.com",
+        projectId: "qwerty-b19df",
+        storageBucket: "qwerty-b19df.appspot.com",
+        messagingSenderId: "1002147233186",
+        appId: "1:1002147233186:web:422bd752c64188bb9186fb",
+        measurementId: "G-V54PMETYSL"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    </script>
+    <script id="mainscript">
+    var name, password;
+
+    function Ready() {
+        name = document.getElementById('userName').value;
+        password = document.getElementById('userPassword').value;
+    }
+    document.getElementById('insert').onclick = function() {
+        Ready();
+        firebase.database().ref('users/' + name).set({
+            Name: name,
+            Password: password
+        })
+    }
+    </script>
+</body>
+
+</html>

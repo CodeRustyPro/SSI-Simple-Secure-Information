@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<html lang="en">
+<head>
+    <title>Login to continue</title>
+    <meta charset="UTF-8" />
+    <meta name="description" content="This is your One Time data transfer app.login to continue">
+    <meta name="og::description" content="This is your One Time data transfer app.Login to continue">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.1/firebase.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="login.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="index.html#home" id="navbar__logo"><img src="logo.png" alt="logo-SSI"></a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span> <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="index.html#home" class="navbar__links" id="home-page">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="index.html#about" class="navbar__links" id="about-page">About</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="signup.html" target="_blank" class="navbar__links" id="signup">SignUp/In</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="index.html#services" class="navbar__links" id="services-page">Services</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="login.html" target="_blank" class="navbar__links" id="upload">Upload Data</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="login.html" class="button" id="signup">Recieve Data</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <form id="form" autocomplete="off">
+        <label for="u_email">Email:</label><br>
+        <input type="text" id="u_email" autocomplete="off" placeholder="Enter Email Address" onkeyup="validate();">
+        <span class="indicator"></span>
+        <br><br>
+        <label for="u_password">Password:</label><br>
+        <input type="text" id="u_password" required="required" placeholder="Enter Password">
+        <br><br>
+        <button type="button" id="loginbtn">Login<i class="fa fa-check" aria-hidden="true"></i>
+        </button>
+        <button type="button" id="signupbtn">SignUp<i class="fa fa-check"></i></button>
+        <button type="button" onclick="GoogleLogin();">Login with <i class="fab fa-google"></i></button>
+    </form>
+    <script type="text/javascript">
+    function GoogleLogin() {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then(function() {
+            window.location = "success.html";
+        }).catch(function(error) {
+            var errorMessage = error.message;
+            alert(errorMessage);
+        })
+    }
+
+    function validate() {
+        const form = document.getElementById('form');
+        const email = document.getElementById('u_email').value;
+        const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/
+        if (email.match(pattern)) {
+            form.classList.add('valid')
+            form.classList.remove('invalid')
+        } else {
+            form.classList.add('invalid')
+            form.classList.remove('valid')
+        }
+
+    }
+    </script>
+    <script type="text/javascript" src="login.js"></script>
+</body>
+
+</html>
